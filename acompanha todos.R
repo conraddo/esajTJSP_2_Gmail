@@ -1,10 +1,14 @@
 options(warn=-1) #faz rodar bonitinho, mas � perigoso n�o desfazer
 
+#setwd("DESCOMENTE ESSA LINHA E INSIRA AQUI O ENDERE�O DA PASTA RAIZ PARA EVITAR ERROS")
+
 require(tjsp)
+require(mailR)
 
 config <- read.csv("config.csv", row.names=1)
 
 setwd(config["pasta_raiz","input_padrao"])
+
 
 login <- autenticar(
   config["login esaj","input_padrao"],
@@ -27,7 +31,6 @@ delete_old_htmls <- function(){
 
 
 send_email_NOW <- function(assunto, corpo, destinatario=""){
-  require(mailR)
   login <- config["login gmail","input_padrao"]
   if (destinatario==""){
     destinatario<-config["destinatario","input_padrao"]}
@@ -52,7 +55,7 @@ send_email_NOW <- function(assunto, corpo, destinatario=""){
 ## Bagunça que funciona \/
 
 monta_email <- function(proc, desc){
-  LIMITE_MOV <- config["num mov","input_padrao"] #Limite de linhas porque movimentação é uma baita tabela
+  LIMITE_MOV <- strtoi(config["num mov","input_padrao"]) #Limite de linhas porque movimentação é uma baita tabela
   assunto <- paste("Acompanhamento |", desc) %>% paste("|") %>% paste(proc)
   corpo <- paste(assunto, "|") %>% paste(Sys.Date())
   
