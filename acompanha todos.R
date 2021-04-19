@@ -9,7 +9,6 @@ config <- read.csv("config.csv", row.names=1)
 
 setwd(config["pasta_raiz","input_padrao"])
 
-
 login <- autenticar(
   config["login esaj","input_padrao"],
   config["senha esaj","input_padrao"])
@@ -33,7 +32,8 @@ delete_old_htmls <- function(){
 send_email_NOW <- function(assunto, corpo, destinatario=""){
   login <- config["login gmail","input_padrao"]
   if (destinatario==""){
-    destinatario<-config["destinatario","input_padrao"]}
+    destinatario<-config["destinatario","input_padrao"]
+    }
   pass <- config["senha gmail","input_padrao"]
   mailR::send.mail(
     from = login,
